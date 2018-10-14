@@ -1,3 +1,4 @@
+import argparse
 import getpass
 import logging
 import sys
@@ -54,6 +55,11 @@ class Infestor:
         )
         return op
 
+    def _get_active_key(self):
+        return getpass.getpass("Creator account's active key:\n")
+
+    def _get_new_account_master_key(self):
+        return getpass.getpass("Master key for the new account:\n")
 
     def __init__(self, creator):
         self.creator = creator
@@ -93,7 +99,7 @@ class Infestor:
             print("Stopped. Insufficient mana.", file=sys.stderr)
             sys.exit(-1)
 
-        active_key = getpass.getpass("Creator account's active key?")
+        active_key = self._get_active_key()
 
         self.client.keys = [active_key, ]
         self.client.broadcast(self._prepare_claim_account_operation())
@@ -110,9 +116,16 @@ class Infestor:
         Corresponding private and public keys are generated based on the
         master key.
         """
-        active_key = getpass.getpass("Creator account's active key?")
-        new_account_master_key = getpass.getpass(
-            "Master key for the new account")
+
+        if not new_account_name:
+            print(
+                "Add a --new-account-name <account_name> to the command.",
+                file=sys.stderr
+            )
+            sys.exit(-1)
+
+        active_key = self._get_active_key()
+        new_account_master_key = self._get_new_account_master_key()
 
         # check the username is already exists?
         accounts = self.client.get_accounts([new_account_name])
@@ -161,9 +174,23 @@ class Infestor:
 
 
 def main():
-    infestor = Infestor('emrebeyler')
-    # infestor.claim_account()
-    infestor.create_claimed_account('emrebeyler2')
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "action",
+        help="An action to perform.",
+        choices=["claim_account", "create_claimed_account"])
+    parser.add_argument(
+        '--creator', help="Creator account", required=True)
+    parser.add_argument('--new-account-name', help="New account name")
+
+    args = parser.parse_args()
+
+    infestor = Infestor(args.creator)
+    if args.action == "claim_account":
+        infestor.claim_account()
+    else:
+        infestor.create_claimed_account(args.new_account_name)
+
 
 if __name__ == '__main__':
     main()
