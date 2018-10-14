@@ -8,7 +8,7 @@ setup(
     license='MIT',
     author='emre yilmaz',
     author_email='mail@emreyilmaz.me',
-    description='CLI app to claim and created iscounted accounts'
+    description='CLI app to claim and create discounted accounts'
                 ' on the STEEM blockchain.',
     entry_points={
         'console_scripts': [

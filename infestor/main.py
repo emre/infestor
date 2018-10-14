@@ -88,12 +88,12 @@ class Infestor:
             self._prepare_claim_account_operation())
 
         print(f"{self.creator} has {pending_claimed_accounts} "
-              f"pending claimed accounts. Claiming an account requires"
-              f" {cost_of_claim_account}MM mana, at the moment.")
+              f"pending claimed accounts. Claiming an account currently "
+              f"requires {cost_of_claim_account}MM mana.")
 
         print(f"{self.creator} has {int(current_mana)}MM mana available and"
               f" can claim {int(current_mana / cost_of_claim_account)}"
-              f" accounts more.")
+              f" more accounts.")
 
         if cost_of_claim_account > current_mana:
             print("Stopped. Insufficient mana.", file=sys.stderr)
@@ -107,8 +107,8 @@ class Infestor:
         pending_claimed_accounts = self.client.account(
             self.creator).raw_data["pending_claimed_accounts"]
 
-        print(f"Success! {self.creator} have {pending_claimed_accounts} "
-              f"pending claimed accounts, now.")
+        print(f"Success! {self.creator} now has {pending_claimed_accounts} "
+              f"pending claimed accounts.")
 
     def create_claimed_account(self, new_account_name):
         """
@@ -131,7 +131,7 @@ class Infestor:
         accounts = self.client.get_accounts([new_account_name])
         if len(accounts):
             print(
-                f"{new_account_name} is already exists. Pick another.",
+                f"{new_account_name} already exists. Choose another username.",
                 file=sys.stderr)
             sys.exit(-1)
 
