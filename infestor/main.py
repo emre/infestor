@@ -159,8 +159,7 @@ class Infestor:
             sys.exit(-1)
 
         self.client.keys = [active_key, ]
-        self.client.broadcast(self._prepare_create_claimed_account_operation(
-            new_account_name, new_account_master_key))
+        self.client.broadcast(op)
 
         print(f"{new_account_name} is successfully created."
               f" Save your passwords:")
