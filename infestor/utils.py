@@ -5,7 +5,7 @@ def generate_keys(new_account_name, master_key):
     keys = {
         "master": master_key,
     }
-    for key_type in ['posting','active','owner','memo']:
+    for key_type in ['posting', 'active', 'owner', 'memo']:
         private_key = PasswordKey(
             new_account_name, master_key, key_type
         ).get_private_key()
