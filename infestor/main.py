@@ -2,6 +2,7 @@ import argparse
 import getpass
 import logging
 import sys
+import os
 
 from lightsteem.client import Client
 from lightsteem.datastructures import Operation
@@ -56,6 +57,8 @@ class Infestor:
         return op
 
     def _get_active_key(self):
+        if os.getenv('INFESTOR_ACTIVE_KEY'):
+            return os.getenv('INFESTOR_ACTIVE_KEY')
         return getpass.getpass("Creator account's active key:\n")
 
     def _get_new_account_master_key(self):
@@ -68,7 +71,7 @@ class Infestor:
     def get_client_instance(self, keys=None):
         return Client(keys=keys)
 
-    def claim_account(self):
+    def claim_account(self, minimum_rc=None):
         """
         Broadcasts a claim_account operation.
         Creator account's RC and the cost of claim_account's RC is calculated
@@ -83,6 +86,13 @@ class Infestor:
 
         rc_details = creator_account.get_resource_credit_info()
         current_mana = rc_details["current_mana"] / 1000000
+
+        if minimum_rc and rc_details["current_mana_percent"] < minimum_rc:
+            print(f"RC of {self.creator} is not enough for the "
+                  f"--minimum-rc requirement. "
+                  f"{round(rc_details['current_mana_percent'], 2)}",
+            file=sys.stderr)
+            sys.exit(-1)
 
         cost_of_claim_account = self.client.rc().get_cost(
             self._prepare_claim_account_operation())
@@ -181,12 +191,13 @@ def main():
     parser.add_argument(
         '--creator', help="Creator account", required=True)
     parser.add_argument('--new-account-name', help="New account name")
+    parser.add_argument('--minimum-rc', help="Minimum RC in percent", type=int)
 
     args = parser.parse_args()
 
     infestor = Infestor(args.creator)
     if args.action == "claim_account":
-        infestor.claim_account()
+        infestor.claim_account(minimum_rc=args.minimum_rc)
     else:
         infestor.create_claimed_account(args.new_account_name)
 

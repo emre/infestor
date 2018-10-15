@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='infestor',
-    version='0.0.2',
+    version='0.0.3',
     packages=["infestor",],
     url='http://github.com/emre/transmitter',
     license='MIT',
