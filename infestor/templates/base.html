@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Infestor - Account Creation</title>
+  <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container">
+  <div class="py-5 text-center">
+    <a href="/"><img class="d-block mx-auto mb-4"
+                     src="https://steemitimages.com/p/C3TZR1g81UNaPs7vzNXHueW5ZM76DSHWEY7onmfLxcK2iPZP7xUgX7ew6iQA4kLF9kUR6ZUFws35JpoWaXbCP13VMZpme1gd1TwaNwuJdLF4VdytcNVvhdx?format=match&mode=fit">
+    </a>
+    <p class="lead">Enter your gift code and create your STEEM account
+      instantly.</p>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-8 order-md-1">
+      {% block content %}
+      {% endblock %}
+    </div>
+    {% block qa %}
+    <div class="col-md-8 order-md-2 mb-4" style="margin-top:10px;">
+      <ul class="list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">What will be my password?</h6>
+            <small class="text-muted">
+              A random strong password will be automatically generated and will
+              be given to you after account creation. Even though the
+              application does
+              <strong>not</strong> store
+              any passwords, please change your password after getting your
+              account from this page: (<code>https://steemit.com/@your_username/password</code>)
+            </small>
+          </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">What happens if the account is hacked?</h6>
+            <small class="text-muted">This service doesn't offer any account
+              recovery process. It would be good for you to set
+              your account's recovery trustee to somebody you trust.
+            </small>
+          </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">Do I need additional Steem Power to interact with
+              the blockchain?</h6>
+            <small class="text-muted">Account will be limited in resource
+              credits. It's a good idea to buy some STEEM and power-up into
+              your account for a smooth blockchain experience.
+            </small>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+    {% endblock %}
+
+
+  </div>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1"><a href="https://github.com/emre/infestor">infestor</a> is
+      developed by <a target="_blank" href="https://steemit.com/@emrebeyler">@emrebeyler</a>. (<a target="_blank" href="https://steemconnect.com/sign/account-witness-vote?witness=emrebeyler&approve=1">Vote for @emrebeyler as a witness.</a>)
+    </p>
+  </footer>
+</div>
+
+
+</html>
