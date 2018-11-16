@@ -20,6 +20,6 @@ $ infestor claim_account --creator <your_account>
 ## Creating accounts
 
 ```
-$ infestor create_account --new-account-name <your_new_account> --creator <your_main_account>
+$ infestor create_claimed_account --new-account-name <your_new_account> --creator <your_main_account>
 ```
 

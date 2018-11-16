@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h4 class="mb-3" xmlns="http://www.w3.org/1999/html">Account details</h4>
+<form class="needs-validation" novalidate>
+
+  <div class="mb-3">
+    <p>Your account (@{{username}}) is created. Your master password is:</p>
+    <div class="alert alert-primary" role="alert" id="master-password">
+      {{ password }}
+    </div>
+    <p>Make sure you have copied your master password and your private keys.
+      <strong>Your account is lost if you lose or forget your master password.</strong></p>
+    <h5 class="mb-3">Private Keys</h5>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Type</th>
+        <th scope="col">Key</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for type, key in keys.items() %}
+      <tr>
+        <td>{{type}}</td>
+        <td>{{key.private}}</td>
+      </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+</form>
+{% endblock %}
+
+
+{%block qa %}{% endblock %}

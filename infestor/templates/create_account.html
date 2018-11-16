@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h4 class="mb-3">Account details</h4>
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+      Error: {{ error }}
+    </div>
+    {% endif %}
+
+<form method="POST">
+  <div class="mb-3">
+
+    <label for="username">Username</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">@</span>
+      </div>
+      <input type="text" class="form-control" id="username" name="username"
+             placeholder="Username" required value="{{ username }}">
+    </div>
+
+  </div>
+  <div class="mb-3">
+    <label for="gift_code">Gift Code</label>
+    <input type="text" class="form-control" id="gift_code"  name="gift_code" placeholder=""
+           required value="{{gift_code}}">
+  </div>
+
+  <button class="btn btn-primary btn-lg btn-block" type="submit">Create
+  </button>
+</form>
+
+{% endblock %}

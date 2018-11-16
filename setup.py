@@ -1,9 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='infestor',
-    version='0.0.4',
-    packages=["infestor",],
+    version='0.0.5',
+    packages=find_packages(),
     url='http://github.com/emre/transmitter',
     license='MIT',
     author='emre yilmaz',
@@ -15,5 +15,7 @@ setup(
             'infestor = infestor.main:main',
         ],
     },
-    install_requires=["lightsteem"]
+    include_package_data=True,
+    zip_safe=False,
+    install_requires=["lightsteem", "pymongo"]
 )
