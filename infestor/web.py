@@ -36,6 +36,14 @@ def index():
     }
 
     if request.method == 'GET':
+        if gift_code:
+            # validate the gift code from internal mongo database
+            if not g.infestor.gift_code_manager.code_is_valid(gift_code):
+                defaults.update({"error": "Invalid gift code."})
+                return render_template(
+                    "create_account.html",
+                    **defaults
+                )
         return render_template(
             "create_account.html",
             **defaults
