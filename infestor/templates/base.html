@@ -75,8 +75,13 @@
   </div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1"><a href="https://github.com/emre/infestor">infestor</a> is
+    <p class="mb-1">
+      {% if g.footer %}
+      {{ g.footer|safe }}
+      {% else %}
+      <a href="https://github.com/emre/infestor">infestor</a> is
       developed by <a target="_blank" href="https://steemit.com/@emrebeyler">@emrebeyler</a>. (<a target="_blank" href="https://steemconnect.com/sign/account-witness-vote?witness=emrebeyler&approve=1">Vote for @emrebeyler as a witness.</a>)
+      {% endif %}
     </p>
   </footer>
 </div>

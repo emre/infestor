@@ -18,6 +18,9 @@ def set_lightsteem_client():
     g.infestor = Infestor(
         INFESTOR_CREATOR_ACCOUNT,
         mongodb_connection_uri=INFESTOR_MONGO_URI)
+    if os.getenv('INFESTOR_FOOTER_TEMPLATE'):
+        with open(os.getenv('INFESTOR_FOOTER_TEMPLATE'), 'r') as f:
+            g.footer = f.read()
 
     if not INFESTOR_ACTIVE_KEY or not INFESTOR_CREATOR_ACCOUNT:
         raise RuntimeError("Missing environment variables: "
@@ -108,8 +111,3 @@ def index():
 
         g.infestor.gift_code_manager.mark_code_as_used(gift_code)
         return render_template("success.html", **defaults)
-
-
-@app.route('/success')
-def success():
-    return render_template("success.html")
