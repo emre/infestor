@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h5 class="mb-3" xmlns="http://www.w3.org/1999/html">Gift Codes</h5>
+<form class="needs-validation" novalidate>
+
+  <div class="mb-3">
+    <p>
+      Success! You can use these gift codes in <a href="/">the root page.</a>
+    </p>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Gift code</th>
+        <th scope="col">Created For</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Used At</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for gift_code in gift_codes %}
+      <tr>
+        <td>{{gift_code.code}}</td>
+        <td>@{{gift_code.created_for}}</td>
+        <td>{{gift_code.created_at}}</td>
+        <td>{% if gift_code.used_at %}{{gift_code.used_at}}{%else %}-{% endif %}</td>
+      </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+
+
+  </div>
+
+</form>
+{% endblock %}
+
+
+{%block qa %}{% endblock %}

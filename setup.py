@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='infestor',
-    version='0.0.9',
+    version='0.1.0',
     packages=find_packages(),
     url='http://github.com/emre/transmitter',
     license='MIT',
@@ -17,5 +17,5 @@ setup(
     },
     include_package_data=True,
     zip_safe=False,
-    install_requires=["lightsteem", "pymongo", "flask", "gunicorn"]
+    install_requires=["lightsteem", "pymongo", "flask", "gunicorn", "steemconnect"],
 )

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h5 class="mb-3" xmlns="http://www.w3.org/1999/html">Login with your STEEM account and claim gift code(s)</h5>
+<form class="needs-validation" novalidate>
+
+  <div class="mb-3">
+    <p>
+      <a href="{{ login_url }}"> Click to login with SteemConnect</a>
+  </p>
+
+  <h6>Requirement:</h6>
+  <ul>
+    <li> Your account's reputation must be at least <strong>{{g.minimum_rep}}</strong>.</li>
+  </ul>
+
+  <h6>Bonus:</h6>
+  <ul>
+    <li> Your will get an extra gift code if you already vote <a href="https://steemconnect.com/sign/account-witness-vote?witness={{g.operator_witness}}&approve=1">@{{g.operator_witness}} as a witness</a>.</li>
+  </ul>
+  </div>
+
+</form>
+{% endblock %}
+
+
+{%block qa %}{% endblock %}
