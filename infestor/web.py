@@ -16,7 +16,7 @@ INFESTOR_MONGO_URI = os.getenv("INFESTOR_MONGO_URI", "localhost")
 SC_CLIENT_ID = os.getenv("INFESTOR_SC_CLIENT_ID", "infestor.app")
 SC_SECRET = os.getenv("INFESTOR_SC_SECRET")
 SITE_URL = os.getenv("INFESTOR_SITE_URL", "http://localhost:8000")
-MINIMUM_REP = os.getenv("INFESTOR_MINIMUM_REP", 60)
+MINIMUM_REP = os.getenv("INFESTOR_MINIMUM_REP", "60")
 OPERATOR_WITNESS = os.getenv("INFESTOR_OPERATOR_WITNESS", "emrebeyler")
 
 
@@ -27,7 +27,7 @@ def set_lightsteem_client():
         INFESTOR_CREATOR_ACCOUNT,
         mongodb_connection_uri=INFESTOR_MONGO_URI)
     g.operator_witness = OPERATOR_WITNESS
-    g.minimum_rep = MINIMUM_REP
+    g.minimum_rep = int(MINIMUM_REP)
     if os.getenv('INFESTOR_FOOTER_TEMPLATE'):
         with open(os.getenv('INFESTOR_FOOTER_TEMPLATE'), 'r') as f:
             g.footer = f.read()
@@ -163,7 +163,7 @@ def gift_codes():
     acc.raw_data = {"reputation": me["account"]["reputation"]}
 
     gift_code_count = 0
-    if acc.reputation() < MINIMUM_REP:
+    if acc.reputation() < g.minimum_rep:
         error = "Your reputation is not enough to claim a free account."
         return render_template("gift_codes.html", error=error)
     else:
