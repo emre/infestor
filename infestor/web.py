@@ -180,4 +180,5 @@ def gift_codes():
     gift_codes = g.infestor.gift_code_manager.get_gift_codes_by_user(
         me["account"]["name"])
 
-    return render_template("gift_codes.html", user=me, gift_codes=gift_codes)
+    return render_template(
+        "gift_codes.html", user=me, gift_codes=gift_codes, error=None)

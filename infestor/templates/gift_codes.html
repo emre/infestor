@@ -7,6 +7,11 @@
 <form class="needs-validation" novalidate>
 
   <div class="mb-3">
+    {% if error %}
+    <p>
+      Error! Your reputation is not enough to participate. Minimum Reputation to participate: {{g.minimum_rep}}.
+    </p>
+    {%else %}
     <p>
       Success! You can use these gift codes in <a href="/">the root page.</a>
     </p>
@@ -32,7 +37,7 @@
 
       </tbody>
     </table>
-
+    {%endif%}
 
   </div>
 
