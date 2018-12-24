@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, g
 from lightsteem.client import Client as LightSteemClient
 from lightsteem.helpers.account import Account
 from steemconnect.client import Client as ScClient
-from .main import Infestor, GiftCodeManager
+from .main import Infestor
 from .utils import username_is_valid, generate_random_password, generate_keys
 
 app = Flask(__name__)
@@ -15,7 +15,7 @@ INFESTOR_ACTIVE_KEY = os.getenv('INFESTOR_ACTIVE_KEY')
 INFESTOR_MONGO_URI = os.getenv("INFESTOR_MONGO_URI", "localhost")
 SC_CLIENT_ID = os.getenv("INFESTOR_SC_CLIENT_ID", "infestor.app")
 SC_SECRET = os.getenv("INFESTOR_SC_SECRET")
-SITE_URL = "http://localhost:8000"
+SITE_URL = os.getenv("INFESTOR_SITE_URL", "http://localhost:8000")
 MINIMUM_REP = os.getenv("INFESTOR_MINIMUM_REP", 60)
 OPERATOR_WITNESS = os.getenv("INFESTOR_OPERATOR_WITNESS", "emrebeyler")
 
@@ -39,6 +39,12 @@ def set_lightsteem_client():
 
 @app.route('/', methods=["GET", "POST"])
 def index():
+    creator_account = g.lightsteem_client.get_accounts(
+        [INFESTOR_CREATOR_ACCOUNT])[0]
+
+    if creator_account["pending_claimed_accounts"] == 0:
+        return "Free account pool is exhausted. Please, try again later on."
+
     gift_code = request.form.get(
         "gift_code", request.args.get("gift_code", ""))
     username = request.form.get("username", "")
