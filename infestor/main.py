@@ -23,7 +23,7 @@ class GiftCodeManager:
         self.db = self.client.infestor
         self.table = self.db.gift_codes
 
-    def add_code(self, code):
+    def add_code(self, code, created_for=None):
         """
         Adds a gift code to the mongodb collection
         """
@@ -31,17 +31,31 @@ class GiftCodeManager:
             "code": code,
             "created_at": datetime.datetime.utcnow(),
             "used_at": None,
+            "created_for": created_for,
         }
         if self.table.find_one({"code": code}):
             raise ValueError(
                 "This gift code already exists. Pick another one.")
         self.table.insert_one(entry)
 
-    def code_is_valid(self, code):
+    def get_gift_code_count_by_user(self, username):
         """
-        A helper function to check the gift code is valid
+        Return a the total number of gift codes created by a specific
+        STEEM account.
         """
-        return bool(self.table.find_one({"code": code, "used_at": None}))
+        return self.table.count({"created_for": username})
+
+    def get_gift_codes_by_user(self, username):
+        """
+        Return a the gift codes created by a specificSTEEM account.
+        """
+        return self.table.find({"created_for": username})
+
+    def get_code(self, code):
+        """
+        A helper function to get the related gift code entry from the database
+        """
+        return self.table.find_one({"code": code})
 
     def mark_code_as_used(self, code):
         """
