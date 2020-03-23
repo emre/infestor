@@ -28,7 +28,7 @@ class GiftCodeManager:
         Adds a gift code to the mongodb collection
         """
         entry = {
-            "code": code,
+            "code": str(code),
             "created_at": datetime.datetime.utcnow(),
             "used_at": None,
             "created_for": created_for,
@@ -61,7 +61,7 @@ class GiftCodeManager:
         """
         A helper function to check the gift code is valid
         """
-        return bool(self.table.find_one({"code": int(code), "used_at": None}))
+        return bool(self.table.find_one({"code": code, "used_at": None}))
 
     def mark_code_as_used(self, code):
         """
