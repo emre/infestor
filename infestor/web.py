@@ -2,8 +2,8 @@ import os
 import random
 
 from flask import Flask, render_template, request, g
-from lightsteem.client import Client as LightSteemClient
-from lightsteem.helpers.account import Account
+from lighthive.client import Client as LightSteemClient
+from lighthive.helpers.account import Account
 from steemconnect.client import Client as ScClient
 from .main import Infestor
 from .utils import username_is_valid, generate_random_password, generate_keys
@@ -116,7 +116,8 @@ def index():
             g.lightsteem_client.broadcast(op)
         except Exception as e:
             print(e)
-            error = "roadcasting the create_claimed_account transaction"
+            error = "Error while broadcasting the create_claimed_account " \
+                    "transaction"
             defaults.update({
                 "error": error,
             })
@@ -131,7 +132,11 @@ def index():
 
 @app.route('/login', methods=["GET"])
 def login():
-    sc_client = ScClient(client_id=SC_CLIENT_ID, client_secret=SC_SECRET)
+    sc_client = ScClient(
+        client_id=SC_CLIENT_ID,
+        client_secret=SC_SECRET,
+        oauth_base_url="https://hivesigner.com/oauth2/",
+        sc2_api_base_url="https://hivesigner.com/api/")
     login_url = sc_client.get_login_url(
         f"{SITE_URL}/gift-codes",
         "login",
@@ -141,7 +146,11 @@ def login():
 
 @app.route('/gift-codes/', methods=["GET"])
 def gift_codes():
-    sc_client = ScClient(access_token=request.args.get("access_token"))
+    sc_client = ScClient(
+        access_token=request.args.get("access_token"),
+        oauth_base_url="https://hivesigner.com/oauth2/",
+        sc2_api_base_url="https://hivesigner.com/api/"
+    )
     me = sc_client.me()
     if 'error' in me:
         return "Invalid access token"
@@ -157,7 +166,7 @@ def gift_codes():
                                gift_codes=gift_codes)
 
     # quick hack
-    # no need to fill all account data into Lightsteem.helpers.Account
+    # no need to fill all account data into Lighthive.helpers.Account
     # since all we're interested in is reputation figure.
     acc = Account(client=g.lightsteem_client)
     acc.raw_data = {"reputation": me["account"]["reputation"]}

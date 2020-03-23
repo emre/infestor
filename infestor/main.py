@@ -5,8 +5,8 @@ import logging
 import os
 import sys
 
-from lightsteem.client import Client
-from lightsteem.datastructures import Operation
+from lighthive.client import Client
+from lighthive.datastructures import Operation
 from pymongo import MongoClient
 
 from .utils import generate_keys
@@ -56,6 +56,12 @@ class GiftCodeManager:
         A helper function to get the related gift code entry from the database
         """
         return self.table.find_one({"code": code})
+
+    def code_is_valid(self, code):
+        """
+        A helper function to check the gift code is valid
+        """
+        return bool(self.table.find_one({"code": int(code), "used_at": None}))
 
     def mark_code_as_used(self, code):
         """

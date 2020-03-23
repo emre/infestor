@@ -12,6 +12,16 @@
   <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
       rel="stylesheet">
+    <style>
+        .btn-primary {
+            background-color: red !important;
+            border-color: red important !;
+        }
+
+        a {
+            color: red !important;
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -19,9 +29,9 @@
 <div class="container">
   <div class="py-5 text-center">
     <a href="/"><img class="d-block mx-auto mb-4"
-                     src="https://steemitimages.com/p/C3TZR1g81UNaPs7vzNXHueW5ZM76DSHWEY7onmfLxcK2iPZP7xUgX7ew6iQA4kLF9kUR6ZUFws35JpoWaXbCP13VMZpme1gd1TwaNwuJdLF4VdytcNVvhdx?format=match&mode=fit">
+                     src="https://i.imgur.com/TB1OF2Y.png">
     </a>
-    <p class="lead">Enter your gift code and create your STEEM account
+      <p class="lead">Enter your gift code and create your <a href="https://hive.io">HIVE</a> account
       instantly.</p>
   </div>
 
@@ -37,7 +47,7 @@
           <div>
             <h6 class="my-0">Where can I get a gift code?</h6>
             <small class="text-muted">
-            Try <a href="/login">logging in</a> with your STEEM account. If there are accounts left
+            Try <a href="/login">logging in</a> with your HIVE account. If there are accounts left
               in the pool, you can get a gift code from there.
             </small>
           </div>
@@ -51,25 +61,25 @@
               application does
               <strong>not</strong> store
               any passwords, please change your password after getting your
-              account from this page: (<code>https://steemit.com/@your_username/password</code>)
+              account.
             </small>
           </div>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">What happens if the account is hacked?</h6>
-            <small class="text-muted">This service doesn't offer any account
-              recovery process. It would be good for you to set
-              your account's recovery trustee to somebody you trust.
+            <h6 class="my-0">What happens if get my account hacked?</h6>
+            <small class="text-muted"><strong>This service doesn't offer any account
+                recovery process.</strong> It would be good for you to set
+              your account's recovery trustee to somebody you trust, so they can start the recovery process for you.
             </small>
           </div>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Do I need additional Steem Power to interact with
+            <h6 class="my-0">Do I need additional Hive Power to interact with
               the blockchain?</h6>
             <small class="text-muted">Account will be limited in resource
-              credits. It's a good idea to buy some STEEM and power-up into
+              credits. It's a good idea to buy some HIVE and power-up into
               your account for a smooth blockchain experience.
             </small>
           </div>
@@ -89,7 +99,7 @@
       {{ g.footer|safe }}
       {% else %}
       <a href="https://github.com/emre/infestor">infestor</a> is
-      developed by <a target="_blank" href="https://steemit.com/@emrebeyler">@emrebeyler</a>. (<a target="_blank" href="https://steemconnect.com/sign/account-witness-vote?witness=emrebeyler&approve=1">Vote for @emrebeyler as a witness.</a>)
+      developed by <a target="_blank" href="https://hive.blog/@emrebeyler">@emrebeyler</a>. (<a target="_blank" href="https://hivesigner.com/sign/account-witness-vote?witness=emrebeyler&approve=1">Vote for @emrebeyler as a witness.</a>)
       {% endif %}
     </p>
   </footer>

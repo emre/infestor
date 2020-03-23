@@ -2,7 +2,7 @@ import random
 import re
 import string
 
-from lightsteem.broadcast.key_objects import PasswordKey
+from lighthive.broadcast.key_objects import PasswordKey
 
 
 def generate_keys(new_account_name, master_key, exclude_master=False):
